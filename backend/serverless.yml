@@ -1,0 +1,72 @@
+service: ${env:PROJECT_NAME}
+
+plugins:
+  - serverless-python-requirements
+  - serverless-offline
+  - serverless-domain-manager
+
+custom:
+  stage: ${opt:stage, 'dev'}
+  serverless-offline:
+    httpPort: 5000
+  pythonRequirements:
+    pythonBin: python3
+  customDomain:
+    domainName: ${env:BACKEND_DOMAIN, ''}
+    certificateArn: ${env:DOMAIN_CERT_ARN, ''}
+    createRoute53Record: 'true'
+    hostedZoneId: ${env:HOSTED_ZONE_ID, ''}
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: ${env:REGION}
+  deploymentBucket:
+    name: ${env:PROJECT_BUCKET, ''}
+
+functions:
+  cognito_authorizer:
+    handler: auth/handler.authenticate
+    environment:
+      USER_POOL_ENDPOINT: ${env:USER_POOL_ENDPOINT}
+  user:
+    handler: routes/handler.user
+    events:
+      - http:
+          path: /user
+          method: get
+          authorizer: cognito_authorizer
+          cors: true
+    environment:
+      FRONTEND_DOMAIN: ${env:FRONTEND_DOMAIN}
+  admin:
+    handler: routes/handler.admin
+    events:
+      - http:
+          path: /admin
+          method: get
+          authorizer: cognito_authorizer
+          cors: true
+    environment:
+      FRONTEND_DOMAIN: ${env:FRONTEND_DOMAIN}
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+    GatewayResponseDefault5XX:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_5XX
+        RestApiId:
+          Ref: "ApiGatewayRestApi"

@@ -1,0 +1,9 @@
+# python files
+__pycache__/
+*.py[cod]
+
+# serverless
+.serverless
+
+# dependencies
+/node_modules

@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  backend:
+    restart: always
+    build: ./backend
+    environment:
+      - FRONTEND_DOMAIN=localhost:3000
+      - PROJECT_NAME=$PROJECT_NAME
+      - PROJECT_BUCKET=$PROJECT_BUCKET
+      - REGION=$REGION
+      - USER_POOL_ENDPOINT=$USER_POOL_ENDPOINT
+      - STAGE=dev
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/backend
+      - ~/.aws:/root/.aws
+    command: sls offline --host 0.0.0.0
+
+  frontend:
+    restart: always
+    build: ./frontend
+    environment:
+      - BROWSER=none
+      - REACT_APP_BACKEND_URL=http://localhost:5000/dev
+      - REACT_APP_FRONTEND_URL=http://localhost:3000
+      - REACT_APP_REGION=$REGION
+      - REACT_APP_USER_POOL_ID=$USER_POOL_ID
+      - REACT_APP_USER_POOL_CLIENT=$USER_POOL_CLIENT
+      - REACT_APP_IDENTITY_POOL_ID=$IDENTITY_POOL_ID
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+      - ~/.aws:/root/.aws
+    depends_on:
+      - backend 
+    command: npm start

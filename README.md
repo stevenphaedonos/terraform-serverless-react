@@ -4,6 +4,7 @@
 
 - Boilerplate code to launch a serverless web application with a ReactJS frontend and Python backend
 - Infrastructure described as code using Terraform
+- Simplified development environment via Docker (and Docker Compose)
 
 ## Architecture
 
