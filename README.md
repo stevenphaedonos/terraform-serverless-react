@@ -25,10 +25,10 @@
 
 ## Terraform
 
-### `variables.tf`
+### variables.tf
 
 - The following parameters must be provided in `pipeline/variables.tf`
-- Refer to `pipeline/variables.tf.dist` for examples
+- Refer to [`pipeline/variables.tf.dist`](pipeline/variables.tf.dist) for examples
 
 | Parameter             | Description                                                                                                                                                                                                              |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -39,10 +39,10 @@
 | git_repository_name   | Name of the GitHub code repository                                                                                                                                                                                       |
 | git_repository_branch | Name of the branch to be deployed (commits to this branch will trigger the CI/CD pipeline)                                                                                                                               |
 
-### `terraform.tf`
+### terraform.tf
 
 - The following parameters must be provided in `pipeline/terraform.tf`
-- Refer to `pipeline/terraform.tf.dist` for examples
+- Refer to [`pipeline/terraform.tf.dist`](pipeline/terraform.tf.dist) for examples
 
 | Parameter           | Description                                                                                                       |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -53,9 +53,9 @@
 
 ## Development
 
-1. Configure the project as described in [Configuration](##Configuration)
+1. Configure the project as described in [Configuration](#Configuration)
 2. From the `pipeline` directory, run `terraform init` followed by `terraform apply`
     - The infrastructure for the project will be deployed
     - An .env file will be added to the project root directory with details of the dev environment resources (this file is used to inject environment variables into the dev Docker containers)
 3. From the project root directory, run `docker-compose up --build`
-4. Pushing a commit to the [`git_repository_branch`](###`variables.tf`) will trigger a deployment to stage, and then to prod (after manual approval)
+4. Pushing a commit to the `git_repository_branch` will trigger a deployment to stage, and then to prod (after manual approval)
