@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - (cd frontend; npm install)
+  build:
+    commands:
+      - (cd frontend; npm run build)
+  post_build:
+    commands:
+      - aws s3 sync frontend/build s3://$PROJECT_BUCKET/frontend/$STAGE/ --delete
+      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRO --paths '/*'

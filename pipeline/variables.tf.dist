@@ -1,0 +1,29 @@
+variable "project_name" {
+  type    = string
+  default = "<YOUR_PROJECT_NAME>"
+}
+
+variable "domain" {
+  type    = string
+  default = "<YOUR_DOMAIN_NAME>"
+}
+
+variable "project_bucket" {
+  type    = string
+  default = "<YOUR_PROJECT_S3_BUCKET>"
+}
+
+variable "git_repository_owner" {
+  type    = string
+  default = "<REPOSITORY_OWNER_USERNAME>"
+}
+
+variable "git_repository_name" {
+  type    = string
+  default = "<REPOSITORY_NAME>"
+}
+
+variable "git_repository_branch" {
+  type    = string
+  default = "<REPOSITORY_BRANCH_NAME>"
+}

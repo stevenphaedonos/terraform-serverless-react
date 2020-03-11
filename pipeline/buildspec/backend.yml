@@ -1,0 +1,11 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - npm install -g serverless@1.66.0
+      - (cd backend; npm install)
+      - (cd backend; sls create_domain --stage $STAGE)
+  build:
+    commands:
+      - (cd backend; sls deploy --verbose --stage $STAGE)

@@ -1,0 +1,12 @@
+provider "aws" {
+  region = "<YOUR_REGION>"
+}
+
+terraform {
+  backend "s3" {
+    bucket  = "<YOUR_STATE_BUCKET>"
+    key     = "<YOUR_STATE_FILE>.tfstate"
+    region  = "<YOUR_STATE_REGION>"
+    encrypt = "true"
+  }
+}

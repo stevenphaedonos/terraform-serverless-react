@@ -1,0 +1,6 @@
+# terraform state
+.terraform
+
+# terraform configuration files
+terraform.tf
+variables.tf
