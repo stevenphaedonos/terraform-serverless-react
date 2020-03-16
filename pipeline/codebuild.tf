@@ -110,6 +110,11 @@ resource "aws_codebuild_project" "stage_backend_codebuild" {
     }
 
     environment_variable {
+      name  = "REGION"
+      value = data.aws_region.current.name
+    }
+
+    environment_variable {
       name  = "STAGE"
       value = "stage"
     }
@@ -234,6 +239,11 @@ resource "aws_codebuild_project" "prod_backend_codebuild" {
     environment_variable {
       name  = "PROJECT_BUCKET"
       value = aws_s3_bucket.project_bucket.id
+    }
+
+    environment_variable {
+      name  = "REGION"
+      value = data.aws_region.current.name
     }
 
     environment_variable {
