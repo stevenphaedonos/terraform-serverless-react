@@ -81,7 +81,7 @@ resource "aws_codebuild_project" "stage_backend_codebuild" {
 
     environment_variable {
       name  = "FRONTEND_DOMAIN"
-      value = var.domain
+      value = "stage.${var.domain}"
     }
 
     environment_variable {
