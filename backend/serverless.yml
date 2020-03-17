@@ -38,7 +38,7 @@ functions:
           authorizer: cognito_authorizer
           cors: true
     environment:
-      FRONTEND_DOMAIN: ${env:FRONTEND_DOMAIN}
+      FRONTEND_URL: ${env:FRONTEND_URL}
   admin:
     handler: routes/handler.admin
     events:
@@ -48,7 +48,7 @@ functions:
           authorizer: cognito_authorizer
           cors: true
     environment:
-      FRONTEND_DOMAIN: ${env:FRONTEND_DOMAIN}
+      FRONTEND_URL: ${env:FRONTEND_URL}
 
 resources:
   Resources:

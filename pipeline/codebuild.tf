@@ -80,8 +80,8 @@ resource "aws_codebuild_project" "stage_backend_codebuild" {
     }
 
     environment_variable {
-      name  = "FRONTEND_DOMAIN"
-      value = "stage.${var.domain}"
+      name  = "FRONTEND_URL"
+      value = "https://stage.${var.domain}"
     }
 
     environment_variable {
@@ -212,8 +212,8 @@ resource "aws_codebuild_project" "prod_backend_codebuild" {
     }
 
     environment_variable {
-      name  = "FRONTEND_DOMAIN"
-      value = var.domain
+      name  = "FRONTEND_URL"
+      value = "https://${var.domain}"
     }
 
     environment_variable {

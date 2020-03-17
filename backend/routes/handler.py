@@ -7,7 +7,7 @@ from auth.decorators import is_admin
 def user(event, context):
     return {
         "statusCode": 204,
-        "headers": {"Access-Control-Allow-Origin": os.environ["FRONTEND_DOMAIN"]},
+        "headers": {"Access-Control-Allow-Origin": os.environ["FRONTEND_URL"]},
     }
 
 
@@ -15,6 +15,6 @@ def user(event, context):
 def admin(event, context):
     return {
         "statusCode": 204,
-        "headers": {"Access-Control-Allow-Origin": os.environ["FRONTEND_DOMAIN"]},
+        "headers": {"Access-Control-Allow-Origin": os.environ["FRONTEND_URL"]},
         "body": json.dumps({"data": "Top-secret admin payload!"}),
     }
