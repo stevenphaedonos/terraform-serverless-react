@@ -14,7 +14,7 @@ def user(event, context):
 @is_admin
 def admin(event, context):
     return {
-        "statusCode": 204,
+        "statusCode": 200,
         "headers": {"Access-Control-Allow-Origin": os.environ["FRONTEND_URL"]},
         "body": json.dumps({"data": "Top-secret admin payload!"}),
     }
